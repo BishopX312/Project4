@@ -1,0 +1,42 @@
+﻿New Table( "realtor_dover By (Bedroom)",
+	Add Rows( 7 ),
+	New Script(
+		"Source",
+		Data Table( "realtor_dover" ) << Summary(
+			Group( :Bedroom ),
+			Mean( :Cost ),
+			Freq( "None" ),
+			Weight( "None" )
+		)
+	),
+	New Column( "Bedroom",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values( [0, 1, 2, 3, 4, 5, 6] ),
+		Lock( 1 )
+	),
+	New Column( "N Rows",
+		Numeric,
+		"Continuous",
+		Format( "Fixed Dec", 12, 0 ),
+		Set Values( [7, 6, 19, 22, 12, 2, 1] ),
+		Lock( 1 )
+	),
+	New Column( "Mean(Cost)",
+		Numeric,
+		"Continuous",
+		Format( "Currency", "USD", 12, 2 ),
+		Set Values(
+			[1289285.57142857, 230150, 300949.157894737, 696422.727272727, 1126575,
+			5339950, 475000]
+		),
+		Lock( 1 )
+	)
+) << Run Formulas;
+Graph Builder(
+	Size( 689, 533 ),
+	Show Control Panel( 0 ),
+	Variables( Y( :Bedroom ), Overlay( :"Mean(Cost)"n ) ),
+	Elements( Histogram( Y, Legend( 54 ) ) )
+);
